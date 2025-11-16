@@ -75,7 +75,9 @@ class Listing extends Model
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(ListingTag::class);
+        return $this->belongsToMany(
+            ListingTag::class, 'listing_tag_pivot'
+        );
     }
 
     public function scopePublic($query)
