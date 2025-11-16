@@ -15,10 +15,23 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('username')->unique();
+            $table->string('phone')->nullable()->unique();
+            $table->string('ref_code')->unique();      // user’s personal referral code
+            $table->string('sponsor')->nullable();      // sponsor’s referral code
+            $table->unsignedBigInteger('referred_by_id')->nullable(); // direct relationship
+            $table->integer('points')->default(0);      // optional reward system
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('referred_by_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
