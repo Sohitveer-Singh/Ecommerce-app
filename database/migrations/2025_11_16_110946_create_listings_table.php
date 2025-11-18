@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->string('created_by')->nullable();
+//            $table->unsignedBigInteger('user_id');
+//            $table->unsignedBigInteger('category_id')->nullable();
+//           $table->string('created_by')->nullable();
 
             $table->tinyInteger('listing_step')->default(0);
 
@@ -49,12 +49,17 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign Keys
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
-            $table->foreign('category_id')->references('id')->on('listing_categories')->nullOnDelete();
+            //$table->foreign('category_id')->references('id')->on('listing_categories')->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained('listing_categories')->nullOnDelete();
 
-            $table->foreign('created_by')->references('username')->on('users')->nullOnDelete();
 
+            //$table->foreign('created_by')->references('username')->on('users')->nullOnDelete();
+            $table->foreignId('created_by_user_id')
+                ->nullable()
+                ->constrained('users') // Still references 'id' on 'users'
+                ->nullOnDelete();
         });
     }
 

@@ -55,7 +55,7 @@ private static $imageUrls = [
             'listing_step'   => 0, // 0 = Completed
             'is_featured'    => fake()->boolean(20), // 20% chance of being featured
             'gst_number'     => fake()->bothify('##AAAAA####A#Z#'),
-            'created_by'     => '100001', // Default to admin
+            'created_by_user_id'     => '100001', // Default to admin
         ];
     }
 

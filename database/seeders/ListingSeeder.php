@@ -38,7 +38,8 @@ class ListingSeeder extends Seeder
             $listing = Listing::factory()->create([
                 'user_id'     => $randomUser->id,
                 'category_id' => $categoryIds->random(),
-                'created_by'  => $randomUser->username,
+                'created_by_user_id'  => $randomUser->id,
+
             ]);
 
             // 5. Attach 1 to 3 random tags (this part was correct)

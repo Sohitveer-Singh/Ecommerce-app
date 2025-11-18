@@ -101,4 +101,20 @@ class User extends Authenticatable
         return $this->hasMany(Listing::class);
     }
 
+    /**
+     * Get all cards owned by this user.
+     */
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class, 'user_id');
+    }
+
+    /**
+     * Get all cards that this user has activated.
+     */
+    public function activatedCards(): HasMany
+    {
+        return $this->hasMany(Card::class, 'activated_by');
+    }
+
 }

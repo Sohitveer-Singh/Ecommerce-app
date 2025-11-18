@@ -20,6 +20,7 @@ class Listing extends Model
         'user_id',
         'category_id',
         'created_by',
+        'created_by_user_id',
         'listing_step',
         'name',
         'contact_person',
@@ -86,6 +87,21 @@ class Listing extends Model
         return $query->where('status', 1)->where('listing_step', 0);
     }
 
+    public function scopeWhereDistance($query, $lat, $lng, $radius)
+    {
+        $haversine = "(
+            6371 * acos(
+                cos(radians(?))
+                * cos(radians(latitude))
+                * cos(radians(longitude) - radians(?))
+                + sin(radians(?))
+                * sin(radians(latitude))
+            )
+        )";
+
+        return $query->whereRaw("{$haversine} < ?", [$lat, $lng, $lat, $radius]);
+    }
+
     protected function thumbnailUrl(): Attribute
     {
         return Attribute::make(
@@ -104,6 +120,20 @@ class Listing extends Model
 
                 // 3. Otherwise, it's a local path, so use Storage::url()
                 return Storage::url($thumbnail);
+            }
+        );
+    }
+
+    protected function today(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                // Get today's day name (e.g., "Monday", "Tuesday")
+                $dayName = now()->dayName;
+
+                // Find the correct timing from the 'timings' relationship
+                // This assumes your 'day' column stores "Monday", "Tuesday", etc.
+                return $this->timings()->where('day', $dayName)->first();
             }
         );
     }
