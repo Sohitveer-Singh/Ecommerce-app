@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('card_number');
             // The user who owns this card
             $table->foreignId('user_id')
+                ->unique()
                 ->constrained('users') // Assumes 'users' table
                 ->cascadeOnDelete();
 

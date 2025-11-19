@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 
 class User extends Authenticatable
@@ -104,9 +106,20 @@ class User extends Authenticatable
     /**
      * Get all cards owned by this user.
      */
-    public function cards(): HasMany
+    public function card(): HasOne
     {
-        return $this->hasMany(Card::class, 'user_id');
+        return $this->hasOne(Card::class, 'user_id');
+    }
+
+    public function wallet(): HasOne
+    {
+        // Assumes wallets table has a 'user_id' column
+        return $this->hasOne(Wallet::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(WalletTransaction::class)->latest();
     }
 
     /**

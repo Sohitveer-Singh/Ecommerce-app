@@ -97,6 +97,19 @@
             border-radius: 50%;
         }
 
+        .status-badge-success {
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(53, 220, 61, 0.4);
+            background: rgba(53, 220, 106, 0.15);
+        }
+
+        .status-dot-success {
+            width: 10px;
+            height: 10px;
+            background: #35dc59;
+            border-radius: 50%;
+        }
+
         /* Photo box */
         .photo-box {
             width: 94px;
@@ -138,164 +151,191 @@
              aria-labelledby="v-pills-order-tab" tabindex="0">
             <div class="payment-section">
 
-                <div class="wrapper-btn">
-                    <button href="user-profile#" class="shop-btn" onclick="modalAction('.cart')">Get
-                        Card
-                    </button>
-
-                    <!-- cart-modal -->
-                    <div class="modal-wrapper cart">
-                        <div onclick="modalAction('.cart')" class="anywhere-away"></div>
-
-                        <!-- change this -->
-                        <div class="login-section   account-section modal-main ">
-                            <div class="review-form z-1">
-                                <div class="review-content">
-                                    <h5 class="comment-title">Premium Card</h5>
-                                    <div class="close-btn " style="height: 20px; width: 20px;" >
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             style="height: 20px; width: 20px;"
-                                             onclick="modalAction('.cart')"
-                                             width="24" height="24" viewBox="0 0 24 24">
-                                            <line x1="5" y1="5" x2="19" y2="19"
-                                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                            <line x1="19" y1="5" x2="5" y2="19"
-                                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                        </svg>
-
-{{--                                        <img src="assets/images/homepage-one/close-btn.png"--}}
-{{--                                              alt="close-btn">--}}
-                                    </div>
-                                </div>
-                                <div class="review-form-name address-form">
-                                    <label for="holdername" class="form-label">Card Holder Name*</label>
-                                    <input type="text" id="holdername" class="form-control"
-                                           value="{{auth()->user()->name}}" disabled>
-                                </div>
-
-                                <div class="account-inner-form">
-                                    <div class="review-form-name">
-                                        <label for="expirydate" class="form-label">Expiry Date*</label>
-                                        <input type="date" id="expirydate" class="form-control"
-                                               value="{{ now()->addYears(3)->format('Y-m-d') }}" disabled>
-                                    </div>
-                                    <div class="review-form-name">
-                                        <label for="cvv" class="form-label">Premium*</label>
-                                        <input type="number" id="cvv" class="form-control"
-                                               value="400" disabled>
-                                    </div>
-                                </div>
-                                <div class="login-btn text-center">
-                                    <a href="user-profile#" onclick="modalAction('.cart')" class="shop-btn">
-                                        Submit Request</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- change this -->
-
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Success!</strong> {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
+                @endif
 
-                </div>
-                <hr>
+
                 <div class="user-title mb-5">
                     <p class="paragraph">Hello, Sajjad</p>
                     <h5 class="heading">Welcome to your Premium Discount Card </h5>
                 </div>
-                <div class="wrapper">
+                @if($card)
+                    <div class="wrapper">
 
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="position-relative card-wrapper">
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="position-relative card-wrapper">
 
-                            <!-- Glow -->
-                            <div class="glow-effect"></div>
+                                <!-- Glow -->
+                                <div class="glow-effect"></div>
 
-                            <!-- Card -->
-                            <div
-                                class="animated-card bg-dark position-relative rounded-4 overflow-hidden text-white shadow-lg">
+                                <!-- Card -->
+                                <div
+                                    class="animated-card bg-dark position-relative rounded-4 overflow-hidden text-white shadow-lg">
 
-                                <!-- Background Layers -->
-                                <div class="bg-overlay-1"></div>
-                                <div class="bg-orb orb-1"></div>
-                                <div class="bg-orb orb-2"></div>
-                                <div class="grid-pattern"></div>
+                                    <!-- Background Layers -->
+                                    <div class="bg-overlay-1"></div>
+                                    <div class="bg-orb orb-1"></div>
+                                    <div class="bg-orb orb-2"></div>
+                                    <div class="grid-pattern"></div>
 
-                                <!-- Content -->
-                                <div class="position-relative  h-100 d-flex flex-column p-4">
+                                    <!-- Content -->
+                                    <div class="position-relative  h-100 d-flex flex-column p-4">
 
-                                    <!-- Header -->
-                                    <div class="d-flex justify-content-between align-items-start mb-4">
-                                        <div>
-                                            <img src="" class="img-fluid" style="max-height: 60px;">
-                                            <p class="fs-5 mt-1 text-white" style="letter-spacing: 2px;">
-                                                PREMIUM DISCOUNT CARD
-                                            </p>
-                                        </div>
-
-                                        <div
-                                            class="d-flex align-items-center rounded-pill status-badge px-3 py-1">
-                                            <span class="status-dot me-2"></span>
-                                            <span class="fw-semibold small">INACTIVE</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Main Section -->
-                                    <div class="d-flex align-items-center flex-grow-1 gap-4">
-
-                                        <!-- Photo -->
-                                        <div class="position-relative">
-                                            <div class="photo-box">
-                                                <img src="" class="w-100 h-100"
-                                                     style="object-fit: cover;">
-                                            </div>
-                                            <div class="photo-glow"></div>
-                                        </div>
-
-                                        <!-- User Info -->
-                                        <div class="flex-grow-1">
-
-                                            <div class="mb-3">
-                                                <p class="small text-uppercase mb-1"
-                                                   style="letter-spacing:2px;color:#cacaca">Cardholder Name
-                                                </p>
-                                                <p class="fw-bold fs-5 mb-0 text-white">Sohitveer Singh</p>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <p class="small text-uppercase mb-1"
-                                                   style="letter-spacing:2px;color:#cacaca">Card Number</p>
-                                                <p class="fw-semibold fs-5 text-light mb-0">4126 0868 8341
+                                        <!-- Header -->
+                                        <div class="d-flex justify-content-between align-items-start mb-4">
+                                            <div>
+                                                <img src="" class="img-fluid" style="max-height: 60px;">
+                                                <p class="fs-5 mt-1 text-white" style="letter-spacing: 2px;">
+                                                    PREMIUM DISCOUNT CARD
                                                 </p>
                                             </div>
 
-                                            <div class="d-flex gap-5">
-                                                <div>
-                                                    <p class="small text-uppercase mb-1"
-                                                       style="letter-spacing:2px;color:#cacaca">Expires
-                                                    </p>
-                                                    <p class="fw-semibold fs-5 text-light mb-0">12/28</p>
+
+                                            @if($card->card_status == 1)
+                                                <div
+                                                    class="d-flex align-items-center rounded-pill status-badge-success px-3 py-1">
+                                                    <span class="status-dot-success me-2"></span>
+                                                    <span class="fw-semibold small">ACTIVE</span>
                                                 </div>
-                                                <div>
-                                                    <p class="small text-uppercase mb-1"
-                                                       style="letter-spacing:2px;color:#cacaca">DOB</p>
-                                                    <p class="fw-semibold fs-5 text-light mb-0">01/01/2001
-                                                    </p>
+                                            @else
+                                                <div
+                                                    class="d-flex align-items-center rounded-pill status-badge px-3 py-1">
+                                                    <span class="status-dot me-2"></span>
+                                                    <span class="fw-semibold small">INACTIVE</span>
                                                 </div>
-                                            </div>
+                                            @endif
+
 
                                         </div>
+
+                                        <!-- Main Section -->
+                                        <div class="d-flex align-items-center flex-grow-1 gap-4">
+
+                                            <!-- Photo -->
+                                            <div class="position-relative">
+                                                <div class="photo-box">
+                                                    <img src="" class="w-100 h-100"
+                                                         style="object-fit: cover;">
+                                                </div>
+                                                <div class="photo-glow"></div>
+                                            </div>
+
+                                            <!-- User Info -->
+                                            <div class="flex-grow-1">
+
+                                                <div class="mb-3">
+                                                    <p class="small text-uppercase mb-1"
+                                                       style="letter-spacing:2px;color:#cacaca">Cardholder Name
+                                                    </p>
+                                                    <p class="fw-bold fs-5 mb-0 text-white">{{ auth()->user()->name }}</p>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <p class="small text-uppercase mb-1"
+                                                       style="letter-spacing:2px;color:#cacaca">Card Number</p>
+                                                    <p class="fw-semibold fs-5 text-light mb-0">{{ chunk_split($card->card_number, 4, ' ') }}
+
+                                                    </p>
+                                                </div>
+
+                                                <div class="d-flex gap-5">
+                                                    <div>
+                                                        <p class="small text-uppercase mb-1"
+                                                           style="letter-spacing:2px;color:#cacaca">Expires
+                                                        </p>
+                                                        <p class="fw-semibold fs-5 text-light mb-0">{{ $card->valid_until->format('m/y') }}</p>
+                                                    </div>
+                                                    <div>
+                                                        <p class="small text-uppercase mb-1"
+                                                           style="letter-spacing:2px;color:#cacaca">DOB</p>
+                                                        <p class="fw-semibold fs-5 text-light mb-0">{{ auth()->user()->dob ?? '-' }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Bottom Gradient Line -->
+                                        <div class="bottom-accent"></div>
+
                                     </div>
+                                </div>
 
-                                    <!-- Bottom Gradient Line -->
-                                    <div class="bottom-accent"></div>
+                            </div>
+                        </div>
 
+
+                    </div>
+                @else
+                    <div class="wrapper-btn">
+                        <button href="user-profile#" class="shop-btn" onclick="modalAction('.cart')">Get
+                            Card
+                        </button>
+
+                        <!-- cart-modal -->
+                        <div class="modal-wrapper cart">
+                            <div onclick="modalAction('.cart')" class="anywhere-away"></div>
+
+                            <!-- change this -->
+                            <div class="login-section   account-section modal-main ">
+                                <div class="review-form z-1">
+                                    <div class="review-content">
+                                        <h5 class="comment-title">Premium Card</h5>
+                                        <div class="close-btn " style="height: 20px; width: 20px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                 style="height: 20px; width: 20px;"
+                                                 onclick="modalAction('.cart')"
+                                                 width="24" height="24" viewBox="0 0 24 24">
+                                                <line x1="5" y1="5" x2="19" y2="19"
+                                                      stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                                <line x1="19" y1="5" x2="5" y2="19"
+                                                      stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+
+                                            {{--                                        <img src="assets/images/homepage-one/close-btn.png"--}}
+                                            {{--                                              alt="close-btn">--}}
+                                        </div>
+                                    </div>
+                                    <form action="{{ route('user.card.store') }}" method="POST">
+                                        @csrf
+
+                                        {{-- VISUAL ONLY: These inputs are disabled and will NOT be sent to the server --}}
+                                        <div class="review-form-name address-form">
+                                            <label class="form-label">Card Holder Name*</label>
+                                            <input type="text" class="form-control" value="{{ auth()->user()->name }}"
+                                                   disabled>
+                                        </div>
+
+                                        <div class="account-inner-form">
+                                            <div class="review-form-name">
+                                                <label class="form-label">Expiry Date*</label>
+                                                <input type="date" class="form-control"
+                                                       value="{{ now()->addYears(3)->format('Y-m-d') }}" disabled>
+                                            </div>
+                                            <div class="review-form-name">
+                                                <label class="form-label">Premium*</label>
+                                                <input type="number" class="form-control" value="400" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="login-btn text-center">
+                                            <button type="submit" class="shop-btn border-0">Submit Request</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                            <!-- change this -->
 
                         </div>
+
                     </div>
+                @endif
 
-
-                </div>
 
                 <hr>
 

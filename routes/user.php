@@ -4,11 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ListingController;
 use App\Http\Controllers\User\CardController;
+use App\Http\Controllers\User\WalletController;
 
 Route::middleware(['auth'])->prefix('user')->as('user.')->group(function(){
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
+
+    });
+
+    Route::controller(WalletController::class)->prefix('wallet')->as('wallet.')->group(function () {
+        Route::get('/', 'index')->name('index');
 
     });
 

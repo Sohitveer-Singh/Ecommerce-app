@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\User\StoreCardRequest;
+use App\Models\Card;
 
 class CardController extends Controller
 {
@@ -12,7 +14,12 @@ class CardController extends Controller
      */
     public function index()
     {
-        return view('user.card.index');
+        $card = auth()->user()->card;
+
+        // Option B: If you haven't added the relationship yet
+        // $card = Card::where('user_id', Auth::id())->first();
+
+        return view('user.card.index', compact('card'));
     }
 
     /**
@@ -26,9 +33,11 @@ class CardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCardRequest $request)
     {
-        //
+        Card::create($request->validated());
+
+        return redirect()->back()->with('success', 'Card request submitted successfully!');
     }
 
     /**

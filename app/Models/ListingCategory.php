@@ -62,7 +62,7 @@ class ListingCategory extends Model
                 }
 
                 // 3. Otherwise, it's a local path, so use Storage::url()
-                return Storage::url($image);
+                return asset($image);
             }
         );
     }

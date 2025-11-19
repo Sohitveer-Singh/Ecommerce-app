@@ -8,6 +8,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     {{--    <link rel="icon" href="assets/images/homepage-one/icon.png">--}}
 
     <!--title  -->
@@ -624,9 +627,9 @@
 
 
 
-<section class="blog about-blog">
+<section style="margin: 0;padding: 40px;" class="blog about-blog">
     <div class="container">
-        <div class="blog-bradcrum">
+        <div style="margin: 0px;" class="blog-bradcrum">
             <span><a href="index">Home</a></span>
             <span class="devider">/</span>
             <span><a href="user-profile#">Dashboard</a></span>
