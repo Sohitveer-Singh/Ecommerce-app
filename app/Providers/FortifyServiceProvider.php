@@ -13,7 +13,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
@@ -41,12 +42,48 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($throttleKey);
         });
 
-        Fortify::loginView(function () {
+        // Login View: Check Route Name 'vendor.login'
+        Fortify::loginView(function (Request $request) {
+            if ($request->routeIs('vendor.login')) {
+                return view('auth.vendor.login');
+            }
             return view('auth.login');
         });
 
-        Fortify::registerView(function () {
+        // Register View: Check Route Name 'vendor.register'
+        Fortify::registerView(function (Request $request) {
+            if ($request->routeIs('vendor.register')) {
+                return view('auth.vendor.register');
+            }
             return view('auth.register');
+        });
+
+        Fortify::authenticateUsing(function (Request $request) {
+            // 1. Find User
+            $user = User::where('email', $request->email)->first();
+
+            // 2. Validate Password
+            if ($user && Hash::check($request->password, $user->password)) {
+
+                // 3. STRICT ENFORCEMENT: Check Route vs Role
+
+                // Scenario A: User is on Vendor Login Page
+                if ($request->routeIs('vendor.login.store')) {
+                    if (! $user->hasRole('vendor')) {
+                        // Fail: Customer tried to login on Vendor page
+                        return null;
+                    }
+                }
+                // Scenario B: User is on Standard Login Page
+                // (Assuming standard route is named 'login' or matches default)
+                elseif ($user->hasRole('vendor')) {
+                    // Fail: Vendor tried to login on Customer page
+                    return null;
+                }
+
+                // Pass: Credentials are good and Role matches the Page
+                return $user;
+            }
         });
 
         RateLimiter::for('two-factor', function (Request $request) {

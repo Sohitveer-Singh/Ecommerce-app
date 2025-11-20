@@ -96,7 +96,10 @@
                                             data-bs-target="#nav-profile" type="button" role="tab"
                                             aria-controls="nav-profile" aria-selected="false">Financials
                                     </button>
-
+                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
+                                            data-bs-target="#nav-contact" type="button" role="tab"
+                                            aria-controls="nav-contact" aria-selected="false">Firm
+                                    </button>
                                     <button class="nav-link" id="nav-loan-tab" data-bs-toggle="tab"
                                             data-bs-target="#nav-loan" type="button" role="tab"
                                             aria-controls="nav-loan" aria-selected="false">Loan
@@ -113,7 +116,7 @@
                                         <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"
                                              aria-labelledby="v-pills-profile-tab" tabindex="0">
                                             <div class="seller-application-section">
-                                                <form action="{{ route('user.profile.update') }}" method="POST"
+                                                <form action="{{ route('vendor.profile.update') }}" method="POST"
                                                       enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
@@ -291,7 +294,7 @@
                                             <div class="seller-application-section">
                                                 <div class="row mx-3 mx-lg-0 ">
                                                     <div class=" col-lg-12">
-                                                        <form action="{{ route('user.profile.update-financials') }}" method="POST" enctype="multipart/form-data">
+                                                        <form action="{{ route('vendor.profile.update-financials') }}" method="POST" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')
 
@@ -382,89 +385,89 @@
 
                                 </div>
 {{----}}
-{{--                                <div class="tab-pane fade" id="nav-contact" role="tabpanel"--}}
-{{--                                     aria-labelledby="nav-contact-tab" tabindex="0">--}}
-{{--                                    <div class="tab-content nav-content" id="v-pills-tabContent" style="flex: 1 0%;">--}}
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel"
+                                     aria-labelledby="nav-contact-tab" tabindex="0">
+                                    <div class="tab-content nav-content" id="v-pills-tabContent" style="flex: 1 0%;">
 
-{{--                                        <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"--}}
-{{--                                             aria-labelledby="v-pills-profile-tab" tabindex="0">--}}
-{{--                                            <div class="seller-application-section">--}}
-{{--                                                <form action="{{ route('user.profile.update-firm') }}" method="POST">--}}
-{{--                                                    @csrf--}}
-{{--                                                    @method('PUT')--}}
+                                        <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"
+                                             aria-labelledby="v-pills-profile-tab" tabindex="0">
+                                            <div class="seller-application-section">
+                                                <form action="{{ route('vendor.profile.update-firm') }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
 
-{{--                                                    <div class="row mx-3 mx-lg-0">--}}
-{{--                                                        <div class="col-lg-12">--}}
+                                                    <div class="row mx-3 mx-lg-0">
+                                                        <div class="col-lg-12">
 
-{{--                                                            @if(session('success'))--}}
-{{--                                                                <div class="alert alert-success">{{ session('success') }}</div>--}}
-{{--                                                            @endif--}}
+                                                            @if(session('success'))
+                                                                <div class="alert alert-success">{{ session('success') }}</div>
+                                                            @endif
 
-{{--                                                            <div class="row g-4 mt-5">--}}
+                                                            <div class="row g-4 mt-5">
 
-{{--                                                                <div class="col-lg-12">--}}
-{{--                                                                    <label class="label-basic">Firm Name*</label>--}}
-{{--                                                                    <input type="text" class="input-basic" name="firm_name"--}}
-{{--                                                                           value="{{ old('firm_name', auth()->user()->firm_name) }}"--}}
-{{--                                                                           placeholder="Enter Firm Name" required>--}}
-{{--                                                                    @error('firm_name') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12">
+                                                                    <label class="label-basic">Firm Name*</label>
+                                                                    <input type="text" class="input-basic" name="firm_name"
+                                                                           value="{{ old('firm_name', auth()->user()->firm_name) }}"
+                                                                           placeholder="Enter Firm Name" required>
+                                                                    @error('firm_name') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-6">--}}
-{{--                                                                    <label class="label-basic">Firm Type*</label>--}}
-{{--                                                                    <select name="firm_type" class="input-basic" required>--}}
-{{--                                                                        <option value="">Select Type</option>--}}
-{{--                                                                        @php--}}
-{{--                                                                            $types = ['Proprietorship', 'Partnership', 'LLP', 'Pvt Ltd', 'Public Ltd', 'Other'];--}}
-{{--                                                                        @endphp--}}
-{{--                                                                        @foreach($types as $type)--}}
-{{--                                                                            <option value="{{ $type }}"--}}
-{{--                                                                                {{ old('firm_type', auth()->user()->firm_type) == $type ? 'selected' : '' }}>--}}
-{{--                                                                                {{ $type }}--}}
-{{--                                                                            </option>--}}
-{{--                                                                        @endforeach--}}
-{{--                                                                    </select>--}}
-{{--                                                                    @error('firm_type') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-6">
+                                                                    <label class="label-basic">Firm Type*</label>
+                                                                    <select name="firm_type" class="input-basic" required>
+                                                                        <option value="">Select Type</option>
+                                                                        @php
+                                                                            $types = ['Proprietorship', 'Partnership', 'LLP', 'Pvt Ltd', 'Public Ltd', 'Other'];
+                                                                        @endphp
+                                                                        @foreach($types as $type)
+                                                                            <option value="{{ $type }}"
+                                                                                {{ old('firm_type', auth()->user()->firm_type) == $type ? 'selected' : '' }}>
+                                                                                {{ $type }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error('firm_type') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-6">--}}
-{{--                                                                    <label class="label-basic">GST Number*</label>--}}
-{{--                                                                    <input type="text" class="input-basic" name="gst_number"--}}
-{{--                                                                           style="text-transform: uppercase"--}}
-{{--                                                                           value="{{ old('gst_number', auth()->user()->gst_number) }}"--}}
-{{--                                                                           placeholder="GSTIN Number" required>--}}
-{{--                                                                    @error('gst_number') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-6">
+                                                                    <label class="label-basic">GST Number*</label>
+                                                                    <input type="text" class="input-basic" name="gst_number"
+                                                                           style="text-transform: uppercase"
+                                                                           value="{{ old('gst_number', auth()->user()->gst_number) }}"
+                                                                           placeholder="GSTIN Number" required>
+                                                                    @error('gst_number') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-12">--}}
-{{--                                                                    <label class="label-basic">Composition Number (Optional)</label>--}}
-{{--                                                                    <input type="text" class="input-basic" name="composition_number"--}}
-{{--                                                                           value="{{ old('composition_number', auth()->user()->composition_number) }}"--}}
-{{--                                                                           placeholder="Enter Composition Scheme Number">--}}
-{{--                                                                    @error('composition_number') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12">
+                                                                    <label class="label-basic">Composition Number (Optional)</label>
+                                                                    <input type="text" class="input-basic" name="composition_number"
+                                                                           value="{{ old('composition_number', auth()->user()->composition_number) }}"
+                                                                           placeholder="Enter Composition Scheme Number">
+                                                                    @error('composition_number') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-12">--}}
-{{--                                                                    <label class="label-basic">Firm Address*</label>--}}
-{{--                                                                    <textarea class="input-basic" name="firm_address" rows="3"--}}
-{{--                                                                              style="height: auto; padding-top: 15px;"--}}
-{{--                                                                              placeholder="Enter Complete Firm Address" required>{{ old('firm_address', auth()->user()->firm_address) }}</textarea>--}}
-{{--                                                                    @error('firm_address') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12">
+                                                                    <label class="label-basic">Firm Address*</label>
+                                                                    <textarea class="input-basic" name="firm_address" rows="3"
+                                                                              style="height: auto; padding-top: 15px;"
+                                                                              placeholder="Enter Complete Firm Address" required>{{ old('firm_address', auth()->user()->firm_address) }}</textarea>
+                                                                    @error('firm_address') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-12 mt-5">--}}
-{{--                                                                    <div class="form-btn">--}}
-{{--                                                                        <button type="submit" style="margin: 0; border:none; cursor:pointer;"--}}
-{{--                                                                                class="shop-btn cancel-btn">--}}
-{{--                                                                            Update Firm Details--}}
-{{--                                                                        </button>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12 mt-5">
+                                                                    <div class="form-btn">
+                                                                        <button type="submit" style="margin: 0; border:none; cursor:pointer;"
+                                                                                class="shop-btn cancel-btn">
+                                                                            Update Firm Details
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
 
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </form>--}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
 {{--                                                <div class="row mx-3 mx-lg-0 ">--}}
 {{--                                                    <div class=" order-2 order-lg-1 col-lg-7">--}}
 
@@ -572,105 +575,105 @@
 {{--                                                        </div>--}}
 {{--                                                    </div>--}}
 {{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                            </div>
+                                        </div>
 
 
-{{--                                    </div>--}}
+                                    </div>
 
-{{--                                </div>--}}
+                                </div>
 
-{{--                                <div class="tab-pane fade" id="nav-loan" role="tabpanel"--}}
-{{--                                     aria-labelledby="nav-loan-tab" tabindex="0">--}}
-{{--                                    <div class="tab-content nav-content" id="v-pills-tabContent" style="flex: 1 0%;">--}}
+                                <div class="tab-pane fade" id="nav-loan" role="tabpanel"
+                                     aria-labelledby="nav-loan-tab" tabindex="0">
+                                    <div class="tab-content nav-content" id="v-pills-tabContent" style="flex: 1 0%;">
 
-{{--                                        <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"--}}
-{{--                                             aria-labelledby="v-pills-profile-tab" tabindex="0">--}}
-{{--                                            <div class="seller-application-section">--}}
-{{--                                                <form action="{{ route('user.profile.update-firm') }}" method="POST">--}}
-{{--                                                    @csrf--}}
-{{--                                                    @method('PUT')--}}
+                                        <div class="tab-pane fade active show" id="v-pills-profile" role="tabpanel"
+                                             aria-labelledby="v-pills-profile-tab" tabindex="0">
+                                            <div class="seller-application-section">
+                                                <form action="{{ route('vendor.profile.update-firm') }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
 
-{{--                                                    <div class="row mx-3 mx-lg-0">--}}
-{{--                                                        <div class="col-lg-12">--}}
+                                                    <div class="row mx-3 mx-lg-0">
+                                                        <div class="col-lg-12">
 
-{{--                                                            @if(session('success'))--}}
-{{--                                                                <div class="alert alert-success">{{ session('success') }}</div>--}}
-{{--                                                            @endif--}}
+                                                            @if(session('success'))
+                                                                <div class="alert alert-success">{{ session('success') }}</div>
+                                                            @endif
 
-{{--                                                            <div class="row g-4 mt-5">--}}
+                                                            <div class="row g-4 mt-5">
 
-{{--                                                                <div class="col-lg-12">--}}
-{{--                                                                    <label class="label-basic">Firm Name*</label>--}}
-{{--                                                                    <input type="text" class="input-basic" name="firm_name"--}}
-{{--                                                                           value="{{ old('firm_name', auth()->user()->firm_name) }}"--}}
-{{--                                                                           placeholder="Enter Firm Name" required>--}}
-{{--                                                                    @error('firm_name') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12">
+                                                                    <label class="label-basic">Firm Name*</label>
+                                                                    <input type="text" class="input-basic" name="firm_name"
+                                                                           value="{{ old('firm_name', auth()->user()->firm_name) }}"
+                                                                           placeholder="Enter Firm Name" required>
+                                                                    @error('firm_name') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-6">--}}
-{{--                                                                    <label class="label-basic">Firm Type*</label>--}}
-{{--                                                                    <select name="firm_type" class="input-basic" required>--}}
-{{--                                                                        <option value="">Select Type</option>--}}
-{{--                                                                        @php--}}
-{{--                                                                            $types = ['Proprietorship', 'Partnership', 'LLP', 'Pvt Ltd', 'Public Ltd', 'Other'];--}}
-{{--                                                                        @endphp--}}
-{{--                                                                        @foreach($types as $type)--}}
-{{--                                                                            <option value="{{ $type }}"--}}
-{{--                                                                                {{ old('firm_type', auth()->user()->firm_type) == $type ? 'selected' : '' }}>--}}
-{{--                                                                                {{ $type }}--}}
-{{--                                                                            </option>--}}
-{{--                                                                        @endforeach--}}
-{{--                                                                    </select>--}}
-{{--                                                                    @error('firm_type') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-6">
+                                                                    <label class="label-basic">Firm Type*</label>
+                                                                    <select name="firm_type" class="input-basic" required>
+                                                                        <option value="">Select Type</option>
+                                                                        @php
+                                                                            $types = ['Proprietorship', 'Partnership', 'LLP', 'Pvt Ltd', 'Public Ltd', 'Other'];
+                                                                        @endphp
+                                                                        @foreach($types as $type)
+                                                                            <option value="{{ $type }}"
+                                                                                {{ old('firm_type', auth()->user()->firm_type) == $type ? 'selected' : '' }}>
+                                                                                {{ $type }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error('firm_type') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-6">--}}
-{{--                                                                    <label class="label-basic">GST Number*</label>--}}
-{{--                                                                    <input type="text" class="input-basic" name="gst_number"--}}
-{{--                                                                           style="text-transform: uppercase"--}}
-{{--                                                                           value="{{ old('gst_number', auth()->user()->gst_number) }}"--}}
-{{--                                                                           placeholder="GSTIN Number" required>--}}
-{{--                                                                    @error('gst_number') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-6">
+                                                                    <label class="label-basic">GST Number*</label>
+                                                                    <input type="text" class="input-basic" name="gst_number"
+                                                                           style="text-transform: uppercase"
+                                                                           value="{{ old('gst_number', auth()->user()->gst_number) }}"
+                                                                           placeholder="GSTIN Number" required>
+                                                                    @error('gst_number') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-12">--}}
-{{--                                                                    <label class="label-basic">Composition Number (Optional)</label>--}}
-{{--                                                                    <input type="text" class="input-basic" name="composition_number"--}}
-{{--                                                                           value="{{ old('composition_number', auth()->user()->composition_number) }}"--}}
-{{--                                                                           placeholder="Enter Composition Scheme Number">--}}
-{{--                                                                    @error('composition_number') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12">
+                                                                    <label class="label-basic">Composition Number (Optional)</label>
+                                                                    <input type="text" class="input-basic" name="composition_number"
+                                                                           value="{{ old('composition_number', auth()->user()->composition_number) }}"
+                                                                           placeholder="Enter Composition Scheme Number">
+                                                                    @error('composition_number') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-12">--}}
-{{--                                                                    <label class="label-basic">Firm Address*</label>--}}
-{{--                                                                    <textarea class="input-basic" name="firm_address" rows="3"--}}
-{{--                                                                              style="height: auto; padding-top: 15px;"--}}
-{{--                                                                              placeholder="Enter Complete Firm Address" required>{{ old('firm_address', auth()->user()->firm_address) }}</textarea>--}}
-{{--                                                                    @error('firm_address') <small class="text-danger">{{ $message }}</small> @enderror--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12">
+                                                                    <label class="label-basic">Firm Address*</label>
+                                                                    <textarea class="input-basic" name="firm_address" rows="3"
+                                                                              style="height: auto; padding-top: 15px;"
+                                                                              placeholder="Enter Complete Firm Address" required>{{ old('firm_address', auth()->user()->firm_address) }}</textarea>
+                                                                    @error('firm_address') <small class="text-danger">{{ $message }}</small> @enderror
+                                                                </div>
 
-{{--                                                                <div class="col-lg-12 mt-5">--}}
-{{--                                                                    <div class="form-btn">--}}
-{{--                                                                        <button type="submit" style="margin: 0; border:none; cursor:pointer;"--}}
-{{--                                                                                class="shop-btn cancel-btn">--}}
-{{--                                                                            Update Firm Details--}}
-{{--                                                                        </button>--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
+                                                                <div class="col-lg-12 mt-5">
+                                                                    <div class="form-btn">
+                                                                        <button type="submit" style="margin: 0; border:none; cursor:pointer;"
+                                                                                class="shop-btn cancel-btn">
+                                                                            Update Firm Details
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
 
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-{{--                                                </form>--}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
 
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                            </div>
+                                        </div>
 
 
-{{--                                    </div>--}}
+                                    </div>
 
-{{--                                </div>--}}
+                                </div>
 
 
                             </div>

@@ -29,7 +29,7 @@ Route::controller(IndexController::class)->as('public.')->group(function () {
 
 });
 
-
+require __DIR__ . '/vendor.php';
 require __DIR__.'/admin.php';
 //require __DIR__.'/agent.php';
 require __DIR__.'/user.php';

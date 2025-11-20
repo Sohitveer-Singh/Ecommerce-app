@@ -567,11 +567,20 @@
 
                         {{--Dashboard--}}
                         @auth
-                            <li>
-                                <a href="/user/dashboard">
-                                    <span class="list-text">Dashboard</span>
-                                </a>
-                            </li>
+                            @if(auth()->user()->hasRole('vendor'))
+                                <li>
+                                    <a href="{{route('vendor.dashboard')}}">
+                                        <span class="list-text">Dashboard</span>
+                                    </a>
+                                </li>
+                            @elseif(auth()->user()->hasRole('user'))
+                                <li>
+                                    <a href="{{route('user.dashboard')}}">
+                                        <span class="list-text">Dashboard</span>
+                                    </a>
+                                </li>
+                            @endif
+
                         @endauth
                         <li>
                             <a href="{{route('public.privacy-policy')}}">
@@ -650,8 +659,10 @@
 
                 @if(auth()->user()->hasRole('admin'))
                     <x-admin.dashboard-sidebar/>
-                @else
+                @elseif(auth()->user()->hasRole('user'))
                 <x-user.dashboard-sidebar/>
+                @elseif(auth()->user()->hasRole('vendor'))
+                    <x-vendor.dashboard-sidebar/>
                 @endif
 
                 @yield('content')

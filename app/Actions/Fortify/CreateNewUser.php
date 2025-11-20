@@ -120,6 +120,11 @@ class CreateNewUser implements CreatesNewUsers
             // 4. ✅ Create Wallet IMMEDIATELY
             $user->wallet()->create();
 
+            if (request()->routeIs('vendor.register.store')) {
+                $user->assignRole('vendor');
+            } else {
+                $user->assignRole('user');
+            }
             event(new UserRegistered($user));
 
             return $user;
