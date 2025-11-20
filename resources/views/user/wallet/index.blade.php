@@ -27,7 +27,7 @@
                 <div class="profile-section">
                     <div class="row g-5">
                         <div class="col-lg-4 col-sm-6">
-{{--@dd($wallet)--}}
+
                             <div class=" overflow-hidden border-0"
                                  style="border-radius: 1.2rem;  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;font-family: 'Jost', sans-serif;
                                                  background: rgba(174, 28, 154, 0.08);">
@@ -150,27 +150,27 @@
     </div>
 @endsection
 @push('scripts')
-{{--    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>--}}
-{{--    <script>--}}
-{{--        $(document).ready(function () {--}}
-{{--            $('#completedListingsTable').DataTable({--}}
-{{--                "order": [--}}
-{{--                    [3, "desc"]--}}
-{{--                ],--}}
-{{--                // Add this language option--}}
-{{--                "language": {--}}
-{{--                    "emptyTable": "No completed listings found."--}}
-{{--                }--}}
-{{--            });--}}
-{{--            $('#pendingListingsTable').DataTable({--}}
-{{--                "order": [--}}
-{{--                    [3, "desc"]--}}
-{{--                ],--}}
-{{--                // Add this language option--}}
-{{--                "language": {--}}
-{{--                    "emptyTable": "No pending listings found."--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+    {{--    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script>--}}
+    {{--    <script>--}}
+    {{--        $(document).ready(function () {--}}
+    {{--            $('#completedListingsTable').DataTable({--}}
+    {{--                "order": [--}}
+    {{--                    [3, "desc"]--}}
+    {{--                ],--}}
+    {{--                // Add this language option--}}
+    {{--                "language": {--}}
+    {{--                    "emptyTable": "No completed listings found."--}}
+    {{--                }--}}
+    {{--            });--}}
+    {{--            $('#pendingListingsTable').DataTable({--}}
+    {{--                "order": [--}}
+    {{--                    [3, "desc"]--}}
+    {{--                ],--}}
+    {{--                // Add this language option--}}
+    {{--                "language": {--}}
+    {{--                    "emptyTable": "No pending listings found."--}}
+    {{--                }--}}
+    {{--            });--}}
+    {{--        });--}}
+    {{--    </script>--}}
 @endpush

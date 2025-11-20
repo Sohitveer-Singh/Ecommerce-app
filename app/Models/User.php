@@ -12,11 +12,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 
-
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable , HasRoles;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +33,25 @@ class User extends Authenticatable
         'sponsor',
         'referred_by_id',
         'points',
-        'phone'
+        'phone',
+        'address',
+        'country',
+        'city',
+        'district',
+        'pincode',
+        'profile_picture',
+        'upi_id',
+        'pan_number',
+        'father_name',
+        'aadhar_number',
+        'pan_photo_path',
+        'aadhar_photo_path',
+        'upi_qr_path',
+        'firm_name',
+        'gst_number',
+        'firm_type',
+        'firm_address',
+        'composition_number',
     ];
 
     /**
@@ -59,6 +76,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     protected static function booted()
     {
         static::creating(function ($user) {

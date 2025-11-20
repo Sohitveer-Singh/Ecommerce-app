@@ -5,6 +5,7 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\ListingController;
 use App\Http\Controllers\User\CardController;
 use App\Http\Controllers\User\WalletController;
+use App\Http\Controllers\User\ProfileController;
 
 Route::middleware(['auth'])->prefix('user')->as('user.')->group(function(){
 
@@ -15,6 +16,15 @@ Route::middleware(['auth'])->prefix('user')->as('user.')->group(function(){
 
     Route::controller(WalletController::class)->prefix('wallet')->as('wallet.')->group(function () {
         Route::get('/', 'index')->name('index');
+
+    });
+
+    Route::controller(ProfileController::class)->prefix('profile')->as('profile.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::put('/update', 'update')->name('update');
+        Route::put('/update-financials', 'updateFinancials')->name('update-financials');
+        Route::put('/update-firm', 'updateFirmDetails')->name('update-firm');
+
 
     });
 
