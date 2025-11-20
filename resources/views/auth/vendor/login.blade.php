@@ -42,24 +42,40 @@
             <form class="review-form shadow-lg" style="height: 650px" method="POST"
                   action="{{ route('vendor.login.store') }}">
                 @csrf
-                <div class="d-flex justify-content-center align-items-center">
-                    <img height="80px" src="assets/images/logos/halobuz_logo.png" alt="">
-                </div>
-                <h5 class="comment-title">Login Into Account</h5>
 
+                <div class="d-flex justify-content-center align-items-center">
+                    <img height="80px" src="{{ asset('assets/images/logos/halobuz_logo.png')}}" alt="">
+                </div>
+
+                <h5 class="comment-title">Login Into Account</h5>
 
                 <div class="review-form-name address-form">
                     <label for="email" class="form-label">Email*</label>
-                    <input type="email" id="email" name="email" class="form-control" required
+                    <input type="email" id="email" name="email"
+                           class="form-control @error('email') is-invalid @enderror"
+                           required
+                           value="{{ old('email') }}"
                            placeholder="user@gmail.com">
+
+                    @error('email')
+                    <div class="text-danger mt-1 small" style="font-weight: 500;">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="review-form-name address-form">
                     <label for="password" class="form-label">Password*</label>
-                    <input type="password" id="password" name="password" class="form-control"
+                    <input type="password" id="password" name="password"
+                           class="form-control @error('password') is-invalid @enderror"
                            placeholder="Enter Password" required>
+
+                    @error('password')
+                    <div class="text-danger mt-1 small">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
-
-
 
                 <div class="review-form-name checkbox">
                     <div class="checkbox-item">
@@ -67,12 +83,46 @@
                         <label class="form-check-label" for="remember">Remember Me</label>
                     </div>
                 </div>
+
                 <div class="login-btn text-center">
                     <button type="submit" id="registerBtn" class="shop-btn">Login</button>
-                    <span class="shop-account">Don't have an account ?<a
-                            href="{{ route('register') }}">Register</a></span>
+                    <span class="shop-account">Don't have an account ? <a href="{{ route('register') }}">Register</a></span>
                 </div>
             </form>
+{{--            <form class="review-form shadow-lg" style="height: 650px" method="POST"--}}
+{{--                  action="{{ route('vendor.login.store') }}">--}}
+{{--                @csrf--}}
+{{--                <div class="d-flex justify-content-center align-items-center">--}}
+{{--                    <img height="80px" src="assets/images/logos/halobuz_logo.png" alt="">--}}
+{{--                </div>--}}
+{{--                <h5 class="comment-title">Login Into Account</h5>--}}
+
+
+{{--                <div class="review-form-name address-form">--}}
+{{--                    <label for="email" class="form-label">Email*</label>--}}
+{{--                    <input type="email" id="email" name="email" class="form-control" required--}}
+{{--                           placeholder="user@gmail.com">--}}
+{{--                </div>--}}
+{{--                <div class="review-form-name address-form">--}}
+{{--                    <label for="password" class="form-label">Password*</label>--}}
+{{--                    <input type="password" id="password" name="password" class="form-control"--}}
+{{--                           placeholder="Enter Password" required>--}}
+{{--                </div>--}}
+
+
+
+{{--                <div class="review-form-name checkbox">--}}
+{{--                    <div class="checkbox-item">--}}
+{{--                        <input type="checkbox" id="remember" name="remember">--}}
+{{--                        <label class="form-check-label" for="remember">Remember Me</label>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="login-btn text-center">--}}
+{{--                    <button type="submit" id="registerBtn" class="shop-btn">Login</button>--}}
+{{--                    <span class="shop-account">Don't have an account ?<a--}}
+{{--                            href="{{ route('register') }}">Register</a></span>--}}
+{{--                </div>--}}
+{{--            </form>--}}
         </div>
     </div>
 </section>

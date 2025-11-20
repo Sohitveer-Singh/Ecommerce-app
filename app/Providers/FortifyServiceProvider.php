@@ -15,6 +15,8 @@ use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
@@ -59,32 +61,73 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::authenticateUsing(function (Request $request) {
-            // 1. Find User
             $user = User::where('email', $request->email)->first();
 
-            // 2. Validate Password
+            // 1. Check Credentials first
             if ($user && Hash::check($request->password, $user->password)) {
 
-                // 3. STRICT ENFORCEMENT: Check Route vs Role
-
-                // Scenario A: User is on Vendor Login Page
+                // 2. Scenario: User is on VENDOR Login Page
                 if ($request->routeIs('vendor.login.store')) {
-                    if (! $user->hasRole('vendor')) {
-                        // Fail: Customer tried to login on Vendor page
-                        return null;
+                    if (! $user->hasRole('vendor') && ! $user->hasRole('admin')) {
+                        // ❌ Stop them and show specific error
+                        throw ValidationException::withMessages([
+                            'email' => [
+                                'You are a Customer account. Please login at the main website.'
+                            ],
+                        ]);
                     }
-                }
-                // Scenario B: User is on Standard Login Page
-                // (Assuming standard route is named 'login' or matches default)
-                elseif ($user->hasRole('vendor')) {
-                    // Fail: Vendor tried to login on Customer page
-                    return null;
+                    return $user;
                 }
 
-                // Pass: Credentials are good and Role matches the Page
+                // 3. Scenario: User is on CUSTOMER Login Page
+                // (We assume this is the fallback/standard login route)
+
+                // Check if it's a vendor trying to login as a customer
+                if ($user->hasRole('vendor') && ! $user->hasRole('admin')) {
+                    // ❌ Stop them and show specific error
+                    throw ValidationException::withMessages([
+                        'email' => [
+                            'You are a Vendor. Please login at the Vendor Portal.'
+                        ],
+                    ]);
+                }
+
+                // If we get here, it's a regular user on the regular page
                 return $user;
             }
+
+            // If password doesn't match or user not found, return null.
+            // This triggers the default "These credentials do not match our records."
+            return null;
         });
+
+//        Fortify::authenticateUsing(function (Request $request) {
+//            // 1. Find User
+//            $user = User::where('email', $request->email)->first();
+//
+//            // 2. Validate Password
+//            if ($user && Hash::check($request->password, $user->password)) {
+//
+//                // 3. STRICT ENFORCEMENT: Check Route vs Role
+//
+//                // Scenario A: User is on Vendor Login Page
+//                if ($request->routeIs('vendor.login.store')) {
+//                    if (! $user->hasRole('vendor')) {
+//                        // Fail: Customer tried to login on Vendor page
+//                        return null;
+//                    }
+//                }
+//                // Scenario B: User is on Standard Login Page
+//                // (Assuming standard route is named 'login' or matches default)
+//                elseif ($user->hasRole('vendor')) {
+//                    // Fail: Vendor tried to login on Customer page
+//                    return null;
+//                }
+//
+//                // Pass: Credentials are good and Role matches the Page
+//                return $user;
+//            }
+//        });
 
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));

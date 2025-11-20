@@ -122,9 +122,15 @@ class CreateNewUser implements CreatesNewUsers
 
             if (request()->routeIs('vendor.register.store')) {
                 $user->assignRole('vendor');
-            } else {
+            } elseif (request()->routeIs('register.store') || request()->routeIs('register')) {
+                // explicit check for the normal user route
                 $user->assignRole('user');
+            } else {
+                // 🛡️ Safety Net: If the route matches NOTHING we expect, log it or default to safest option
+                // or throw an exception during development so you notice the route name change immediately.
+                throw new \Exception('Registration attempted from unknown route: ' . request()->route()->getName());
             }
+
             event(new UserRegistered($user));
 
             return $user;

@@ -51,11 +51,21 @@
                     <label for="email" class="form-label">Email*</label>
                     <input type="email" id="email" name="email" class="form-control" required
                            placeholder="user@gmail.com">
+                    @error('email')
+                    <div class="text-danger mt-1 small" style="font-weight: 500;">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
                 <div class="review-form-name address-form">
                     <label for="password" class="form-label">Password*</label>
                     <input type="password" id="password" name="password" class="form-control"
                            placeholder="Enter Password" required>
+                    @error('password')
+                    <div class="text-danger mt-1 small">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
 
 

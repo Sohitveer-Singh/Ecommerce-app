@@ -25,6 +25,7 @@ Route::prefix('vendor')->name('vendor.')->group(function () {
         ->name('register');
 
     // Register Action (POST) -> Name: vendor.register.store
+    // WARNING: This name 'vendor.register.store' is hardcoded in CreateNewUser.php
     Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware('guest')
         ->name('register.store');
