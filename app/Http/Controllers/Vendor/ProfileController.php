@@ -12,7 +12,7 @@ use App\Http\Requests\User\ProfileUpdateRequest;
 class ProfileController extends Controller
 {
     public function index(){
-        return view('user.profile.index');
+        return view('vendor.profile.index');
     }
 
     public function update(ProfileUpdateRequest $request)
