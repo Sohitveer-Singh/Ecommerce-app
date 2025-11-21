@@ -9,7 +9,7 @@
 <div class="nav nav-item nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
     <!-- nav-as -->
-    <a class="nav-link {{ active('user.dashboard') }}" href="{{ route('user.dashboard') }}">
+    <a class="nav-link {{ active('admin.dashboard') }}" href="{{ route('admin.dashboard') }}">
         <span>
             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -27,7 +27,7 @@
         <span class="text">Dashboard</span>
     </a>
 
-    <a class="nav-link {{ active('user.listing.index') }}" href="{{ route('user.listing.index') }}">
+    <a class="nav-link {{ active('admin.listing.index') }}" href="{{ route('admin.listing.index') }}">
         <span>
             <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path

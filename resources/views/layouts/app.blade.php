@@ -579,12 +579,12 @@
                                         <span class="list-text">Dashboard</span>
                                     </a>
                                 </li>
-{{--                            @elseif(auth()->user()->hasRole('admin'))--}}
-{{--                                <li>--}}
-{{--                                    <a href="{{ route('admin.dashboard') }}">--}}
-{{--                                        <span class="list-text">User Dashboard</span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
+                            @elseif(auth()->user()->hasRole('admin'))
+                                <li>
+                                    <a href="{{ route('admin.dashboard') }}">
+                                        <span class="list-text">User Dashboard</span>
+                                    </a>
+                                </li>
                             @endif
                         @endauth
                         <li>

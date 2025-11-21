@@ -7,7 +7,7 @@ use App\Http\Controllers\User\CardController;
 use App\Http\Controllers\User\WalletController;
 use App\Http\Controllers\User\ProfileController;
 
-Route::middleware(['auth'])->prefix('user')->as('user.')->group(function(){
+Route::middleware(['auth','role:user'])->prefix('user')->as('user.')->group(function(){
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');

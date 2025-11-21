@@ -29,7 +29,9 @@ Route::prefix('vendor')->name('vendor.')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware('guest')
         ->name('register.store');
+});
 
+Route::middleware(['auth','role:vendor'])->prefix('vendor')->name('vendor.')->group(function () {
     Route::controller(VendorDashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
 
