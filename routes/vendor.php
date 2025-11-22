@@ -7,6 +7,7 @@ use App\Http\Controllers\Vendor\ProfileController as VendorProfileController;
 use App\Http\Controllers\Vendor\WalletController as VendorWalletController;
 use App\Http\Controllers\Vendor\CardController as VendorCardController;
 use App\Http\Controllers\Vendor\ListingController as VendorListingController;
+use App\Http\Controllers\Vendor\ProductController;
 
 Route::prefix('vendor')->name('vendor.')->group(function () {
 
@@ -31,7 +32,7 @@ Route::prefix('vendor')->name('vendor.')->group(function () {
         ->name('register.store');
 });
 
-Route::middleware(['auth','role:vendor'])->prefix('vendor')->name('vendor.')->group(function () {
+Route::middleware(['auth','role:vendor|admin',])->prefix('vendor')->name('vendor.')->group(function () {
     Route::controller(VendorDashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
 
@@ -47,13 +48,32 @@ Route::middleware(['auth','role:vendor'])->prefix('vendor')->name('vendor.')->gr
         Route::put('/update', 'update')->name('update');
         Route::put('/update-financials', 'updateFinancials')->name('update-financials');
         Route::put('/update-firm', 'updateFirmDetails')->name('update-firm');
-
-
     });
 
     Route::middleware('auth')->group(function () {
         Route::resource('card', VendorCardController::class);
     });
+
+    Route::controller(ProductController::class)
+        ->prefix('listing/{listing}/product')
+        ->as('listing.product.')
+        ->group(function () {
+
+            // Show all products under a listing
+            Route::get('/', 'index')->name('index');
+
+//            // Add product (form + submit)
+//            Route::get('/add', 'create')->name('create');
+            Route::post('/add', 'store')->name('store');
+
+            // Edit product
+            Route::get('{product}/edit', 'edit')->name('edit');
+            Route::put('{product}', 'update')->name('update');
+
+            // Delete product
+            Route::delete('{product}', 'destroy')->name('destroy');
+        });
+
 
     Route::controller(VendorListingController::class)->prefix('listing')->as('listing.')->group(function () {
 

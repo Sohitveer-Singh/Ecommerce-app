@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('firms', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
             $table->string('firm_name')->nullable();
             $table->string('gst_number')->nullable();
             $table->string('firm_type')->nullable(); // e.g., Proprietorship, LLP
             $table->string('firm_address')->nullable();
             $table->string('composition_number')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-
-        });
+        Schema::dropIfExists('firms');
     }
 };

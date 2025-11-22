@@ -81,6 +81,12 @@ class Listing extends Model
         );
     }
 
+    public function products()
+    {
+        return $this->hasMany(ListingProduct::class);
+    }
+
+
     public function scopePublic($query)
     {
         // This logic is now reusable everywhere

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -77,7 +78,7 @@ class User extends Authenticatable
         ];
     }
 
-    protected static function booted()
+    protected static function booted(): void
     {
         static::creating(function ($user) {
             do {
@@ -91,7 +92,7 @@ class User extends Authenticatable
     /**
      * Get the sponsor (the user who referred this one).
      */
-    public function referrer()
+    public function referrer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'referred_by_id');
     }
@@ -100,7 +101,7 @@ class User extends Authenticatable
     /**
      * Get all users referred by this user.
      */
-    public function referrals()
+    public function referrals(): HasMany
     {
         return $this->hasMany(User::class, 'referred_by_id');
     }
@@ -139,6 +140,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(WalletTransaction::class)->latest();
     }
+
+    public function firm(): HasOne
+    {
+        return $this->hasOne(Firm::class);
+    }
+
+    public function financial(): HasOne
+    {
+        return $this->hasOne(Financial::class);
+    }
+
 
     /**
      * Get all cards that this user has activated.

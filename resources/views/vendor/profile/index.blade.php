@@ -303,7 +303,7 @@
                                                                 <div class="col-lg-12">
                                                                     <label class="label-basic">Upi Id*</label>
                                                                     <input type="text" class="input-basic" name="upi_id"
-                                                                           value="{{ old('upi_id', auth()->user()->upi_id) }}"
+                                                                           value="{{ old('upi_id', auth()->user()?->financial?->upi_id) }}"
                                                                            placeholder="Enter Your Upi Id" required>
                                                                     @error('upi_id') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
@@ -311,7 +311,7 @@
                                                                 <div class="col-lg-6">
                                                                     <label class="label-basic">Pan Card Number*</label>
                                                                     <input type="text" class="input-basic" name="pan_number" style="text-transform: uppercase"
-                                                                           value="{{ old('pan_number', auth()->user()->pan_number) }}"
+                                                                           value="{{ old('pan_number', auth()->user()?->financial?->pan_number) }}"
                                                                            placeholder="Pan Number" required>
                                                                     @error('pan_number') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
@@ -320,7 +320,7 @@
                                                                     <label class="label-basic">Pan Card Picture*</label>
                                                                     <input type="file" class="input-basic" name="pan_photo"
                                                                            accept="image/*,application/pdf">
-                                                                    @if(auth()->user()->pan_photo_path)
+                                                                    @if(auth()->user()?->financial?->pan_photo_path)
                                                                         <small class="text-success">✓ File currently uploaded</small>
                                                                     @endif
                                                                     @error('pan_photo') <small class="text-danger">{{ $message }}</small> @enderror
@@ -329,7 +329,7 @@
                                                                 <div class="col-lg-6">
                                                                     <label class="label-basic">Aadhar Card Number*</label>
                                                                     <input type="text" class="input-basic" name="aadhar_number"
-                                                                           value="{{ old('aadhar_number', auth()->user()->aadhar_number) }}"
+                                                                           value="{{ old('aadhar_number', auth()->user()?->financial?->aadhar_number) }}"
                                                                            placeholder="Aadhar Number" required>
                                                                     @error('aadhar_number') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
@@ -338,7 +338,7 @@
                                                                     <label class="label-basic">Aadhar Card Picture*</label>
                                                                     <input type="file" class="input-basic" name="aadhar_photo"
                                                                            accept="image/*,application/pdf">
-                                                                    @if(auth()->user()->aadhar_photo_path)
+                                                                    @if(auth()->user()?->financial?->aadhar_photo_path)
                                                                         <small class="text-success">✓ File currently uploaded</small>
                                                                     @endif
                                                                     @error('aadhar_photo') <small class="text-danger">{{ $message }}</small> @enderror
@@ -347,7 +347,7 @@
                                                                 <div class="col-lg-6">
                                                                     <label class="label-basic">Father Name*</label>
                                                                     <input type="text" class="input-basic" name="father_name"
-                                                                           value="{{ old('father_name', auth()->user()->father_name) }}"
+                                                                           value="{{ old('father_name', auth()->user()?->financial?->father_name) }}"
                                                                            placeholder="Enter Father Name" required>
                                                                     @error('father_name') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
@@ -356,7 +356,7 @@
                                                                     <label class="label-basic">Upload QR Code (Optional)</label>
                                                                     <input type="file" class="input-basic" name="upi_qr"
                                                                            accept="image/*">
-                                                                    @if(auth()->user()->upi_qr_path)
+                                                                    @if(auth()->user()?->financial?->upi_qr_path)
                                                                         <small class="text-success">✓ File currently uploaded</small>
                                                                     @endif
                                                                     @error('upi_qr') <small class="text-danger">{{ $message }}</small> @enderror
@@ -408,7 +408,7 @@
                                                                 <div class="col-lg-12">
                                                                     <label class="label-basic">Firm Name*</label>
                                                                     <input type="text" class="input-basic" name="firm_name"
-                                                                           value="{{ old('firm_name', auth()->user()->firm_name) }}"
+                                                                           value="{{ old('firm_name', auth()->user()?->firm?->firm_name) }}"
                                                                            placeholder="Enter Firm Name" required>
                                                                     @error('firm_name') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
@@ -422,7 +422,7 @@
                                                                         @endphp
                                                                         @foreach($types as $type)
                                                                             <option value="{{ $type }}"
-                                                                                {{ old('firm_type', auth()->user()->firm_type) == $type ? 'selected' : '' }}>
+                                                                                {{ old('firm_type', auth()->user()?->firm?->firm_type) == $type ? 'selected' : '' }}>
                                                                                 {{ $type }}
                                                                             </option>
                                                                         @endforeach
@@ -434,7 +434,7 @@
                                                                     <label class="label-basic">GST Number*</label>
                                                                     <input type="text" class="input-basic" name="gst_number"
                                                                            style="text-transform: uppercase"
-                                                                           value="{{ old('gst_number', auth()->user()->gst_number) }}"
+                                                                           value="{{ old('gst_number', auth()->user()?->firm?->gst_number) }}"
                                                                            placeholder="GSTIN Number" required>
                                                                     @error('gst_number') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
@@ -442,7 +442,7 @@
                                                                 <div class="col-lg-12">
                                                                     <label class="label-basic">Composition Number (Optional)</label>
                                                                     <input type="text" class="input-basic" name="composition_number"
-                                                                           value="{{ old('composition_number', auth()->user()->composition_number) }}"
+                                                                           value="{{ old('composition_number', auth()->user()?->firm?->composition_number) }}"
                                                                            placeholder="Enter Composition Scheme Number">
                                                                     @error('composition_number') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
@@ -451,7 +451,7 @@
                                                                     <label class="label-basic">Firm Address*</label>
                                                                     <textarea class="input-basic" name="firm_address" rows="3"
                                                                               style="height: auto; padding-top: 15px;"
-                                                                              placeholder="Enter Complete Firm Address" required>{{ old('firm_address', auth()->user()->firm_address) }}</textarea>
+                                                                              placeholder="Enter Complete Firm Address" required>{{ old('firm_address', auth()->user()?->firm?->firm_address) }}</textarea>
                                                                     @error('firm_address') <small class="text-danger">{{ $message }}</small> @enderror
                                                                 </div>
 

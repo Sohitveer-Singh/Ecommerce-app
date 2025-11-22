@@ -71,7 +71,11 @@ class ProfileController extends Controller
         unset($validated['aadhar_photo']);
         unset($validated['upi_qr']);
 
-        $user->update($validated);
+        $user->financial()->updateOrCreate(
+            ['user_id' => $user->id],
+            $validated
+        );
+
 
         return back()->with('success', 'KYC details updated successfully!');
     }
@@ -82,7 +86,13 @@ class ProfileController extends Controller
         $validated = $request->validated();
 
         // 2. Update User
-        auth()->user()->update($validated);
+        $user = auth()->user();
+
+        // If firm does not exist yet, create it
+        $user->firm()->updateOrCreate(
+            ['user_id' => $user->id],
+            $validated
+        );
 
         // 3. Return
         return back()->with('success', 'Firm details updated successfully!');
